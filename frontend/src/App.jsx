@@ -22,6 +22,31 @@ function formatDate(value) {
   return `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`;
 }
 
+const DUMMY_COMPANY = {
+  serviceLevel: "FULL",
+  serviceMessage: "공시 기반 재무 및 기업정보 제공 대상입니다.",
+  companyOverview: {
+    corpCode: "00126380",
+    corpName: "삼성전자",
+    ceoName: "전영현",
+    industryName: "전자부품 제조업",
+    businessItem: "전자제품 제조 및 판매",
+    bizrNo: "124-81-00998",
+    jurirNo: "130111-0006246",
+    stockCode: "005930",
+    marketCode: "KOSPI",
+    estDate: "19690113",
+    listingDate: "19750611",
+  },
+};
+
+const DUMMY_BIZR_NO = "1248100998";
+const DUMMY_JURIR_NO = "1301110006246";
+
+function normalizeNumber(value) {
+  return (value || "").replace(/\D/g, "");
+}
+
 function App() {
   const [searchType, setSearchType] = useState("BIZR_NO");
   const [searchValue, setSearchValue] = useState("");
@@ -31,7 +56,40 @@ function App() {
   const [serviceMessage, setServiceMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+  //const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+  const fetchData = async () => {
+    setLoading(true);
+    setError("");
+    setData(null);
+    setServiceLevel("");
+    setServiceMessage("");
+
+    try {
+      const normalized = normalizeNumber(searchValue);
+
+      const isBizrMatch =
+        searchType === "BIZR_NO" && normalized === DUMMY_BIZR_NO;
+
+      const isJurirMatch =
+        searchType === "JURIR_NO" && normalized === DUMMY_JURIR_NO;
+
+      if (isBizrMatch || isJurirMatch) {
+        setServiceLevel(DUMMY_COMPANY.serviceLevel);
+        setServiceMessage(DUMMY_COMPANY.serviceMessage);
+        setData(DUMMY_COMPANY.companyOverview);
+      } else {
+        setServiceLevel("UNAVAILABLE");
+        setServiceMessage("조회 가능한 기업 정보가 없습니다.");
+        setData(null);
+      }
+    } catch (err) {
+      console.error(err);
+      setError("조회 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  /*
   const fetchData = async () => {
     setLoading(true)
     setError("")
@@ -62,6 +120,7 @@ function App() {
       setLoading(false)
     }
   }
+  */
 
   return (
     <div className="im-page">
@@ -128,7 +187,7 @@ function App() {
           <section className="im-status-banner status-default">
             <div className="im-status-icon">i</div>
             <div className="im-status-text">
-              사업자번호 또는 법인번호를 입력하면 기업 정보를 조회할 수 있습니다.
+              데모 버전입니다. 사업자번호 1248100998 또는 법인번호 1301110006246로 조회할 수 있습니다.
             </div>
           </section>
         )}
