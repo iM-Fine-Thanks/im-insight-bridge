@@ -520,3 +520,33 @@ select {
     padding: 14px 16px 18px;
   }
 }
+
+@media (max-width: 768px) {
+  .im-overview-right {
+    min-height: auto;
+  }
+
+  .im-right-visual {
+    min-height: 160px;
+    height: 160px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .im-character {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 8px;
+    width: 220px;
+    max-width: 70%;
+  }
+
+  .im-wave-1,
+  .im-wave-2,
+  .im-wave-3 {
+    bottom: -140px;
+  }
+}
