@@ -31,6 +31,7 @@ function App() {
   const [serviceMessage, setServiceMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
   const fetchData = async () => {
     setLoading(true)
     setError("")
@@ -40,8 +41,8 @@ function App() {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/companies/overview?searchType=${searchType}&searchValue=${searchValue}`
-      )
+        `${API_BASE_URL}/companies/overview?searchType=${searchType}&searchValue=${searchValue}`
+      );
 
       const json = await res.json()
 
