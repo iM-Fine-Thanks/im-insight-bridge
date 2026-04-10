@@ -100,6 +100,12 @@ const DUMMY_FINANCIALS = [
   },
 ];
 
+const DUMMY_AI_BRIEFING = [
+  "최근 3개년 기준 매출은 회복 흐름을 보이고 있으며, 영업이익도 전년 대비 개선된 모습입니다.",
+  "자산 규모와 자본 수준이 안정적으로 유지되고 있어 재무구조는 전반적으로 양호한 것으로 판단됩니다.",
+  "영업 현장에서는 우량 법인 고객 관점에서 접근 가능하며, 추가 거래 확대 가능성을 검토할 수 있습니다.",
+];
+
 const DUMMY_BIZR_NO = "1248100998";
 const DUMMY_JURIR_NO = "1301110006246";
 
@@ -116,6 +122,7 @@ function App() {
   const [serviceMessage, setServiceMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [financials, setFinancials] = useState(EMPTY_FINANCIALS);
+  const [aiBriefing, setAiBriefing] = useState([]);
 
   //const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
   const fetchData = async () => {
@@ -125,6 +132,7 @@ function App() {
     setServiceLevel("");
     setServiceMessage("");
     setFinancials(EMPTY_FINANCIALS);
+    setAiBriefing([]);
 
     try {
       const normalized = normalizeNumber(searchValue);
@@ -140,16 +148,19 @@ function App() {
         setServiceMessage(DUMMY_COMPANY.serviceMessage);
         setData(DUMMY_COMPANY.companyOverview);
         setFinancials(DUMMY_FINANCIALS);
+        setAiBriefing(DUMMY_AI_BRIEFING);
       } else {
         setServiceLevel("UNAVAILABLE");
         setServiceMessage("조회 가능한 기업 정보가 없습니다.");
         setData(null);
         setFinancials(EMPTY_FINANCIALS);
+        setAiBriefing([]);
       }
     } catch (err) {
       console.error(err);
       setError("조회 중 오류가 발생했습니다.");
       setFinancials(EMPTY_FINANCIALS);
+      setAiBriefing([]);
     } finally {
       setLoading(false);
     }
@@ -406,6 +417,29 @@ function App() {
             </table>
           </div>
         </section>
+
+        <section className="im-briefing-card">
+          <div className="im-section-title">AI 브리핑</div>
+          <div className="im-briefing-subtitle">
+            조회 결과를 바탕으로 생성된 요약 의견입니다.
+          </div>
+
+          {aiBriefing.length === 0 ? (
+            <div className="im-briefing-empty">
+              조회 결과가 여기에 표시됩니다.
+            </div>
+          ) : (
+            <div className="im-briefing-list">
+              {aiBriefing.map((item, index) => (
+                <div className="im-briefing-item" key={index}>
+                  <div className="im-briefing-bullet">AI</div>
+                  <div className="im-briefing-text">{item}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
       </main>
     </div>
   );
