@@ -40,6 +40,36 @@ const DUMMY_COMPANY = {
   },
 };
 
+const EMPTY_FINANCIALS = [
+  {
+    year: "2022",
+    revenue: "",
+    operatingIncome: "",
+    netIncome: "",
+    totalAssets: "",
+    totalLiabilities: "",
+    totalEquity: "",
+  },
+  {
+    year: "2023",
+    revenue: "",
+    operatingIncome: "",
+    netIncome: "",
+    totalAssets: "",
+    totalLiabilities: "",
+    totalEquity: "",
+  },
+  {
+    year: "2024",
+    revenue: "",
+    operatingIncome: "",
+    netIncome: "",
+    totalAssets: "",
+    totalLiabilities: "",
+    totalEquity: "",
+  },
+];
+
 const DUMMY_FINANCIALS = [
   {
     year: "2022",
@@ -85,6 +115,7 @@ function App() {
   const [serviceLevel, setServiceLevel] = useState("");
   const [serviceMessage, setServiceMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [financials, setFinancials] = useState(EMPTY_FINANCIALS);
 
   //const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
   const fetchData = async () => {
@@ -93,6 +124,7 @@ function App() {
     setData(null);
     setServiceLevel("");
     setServiceMessage("");
+    setFinancials(EMPTY_FINANCIALS);
 
     try {
       const normalized = normalizeNumber(searchValue);
@@ -107,14 +139,17 @@ function App() {
         setServiceLevel(DUMMY_COMPANY.serviceLevel);
         setServiceMessage(DUMMY_COMPANY.serviceMessage);
         setData(DUMMY_COMPANY.companyOverview);
+        setFinancials(DUMMY_FINANCIALS);
       } else {
         setServiceLevel("UNAVAILABLE");
         setServiceMessage("조회 가능한 기업 정보가 없습니다.");
         setData(null);
+        setFinancials(EMPTY_FINANCIALS);
       }
     } catch (err) {
       console.error(err);
       setError("조회 중 오류가 발생했습니다.");
+      setFinancials(EMPTY_FINANCIALS);
     } finally {
       setLoading(false);
     }
@@ -316,63 +351,61 @@ function App() {
           )}
         </section>
         
-        {/* {data && serviceLevel === "FULL" && ( */}
-          <section className="im-financial-card">
-            <div className="im-section-title">핵심요약재무보고서</div>
-            <div className="im-financial-subtitle">최근 3개년 기준 (단위: 백만원)</div>
+        <section className="im-financial-card">
+          <div className="im-section-title">핵심요약재무보고서</div>
+          <div className="im-financial-subtitle">최근 3개년 기준 (단위: 백만원)</div>
 
-            <div className="im-financial-table-wrap">
-              <table className="im-financial-table">
-                <thead>
-                  <tr>
-                    <th>구분</th>
-                    {DUMMY_FINANCIALS.map((item) => (
-                      <th key={item.year}>{item.year}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>매출액</td>
-                    {DUMMY_FINANCIALS.map((item) => (
-                      <td key={`revenue-${item.year}`}>{item.revenue}</td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td>영업이익</td>
-                    {DUMMY_FINANCIALS.map((item) => (
-                      <td key={`op-${item.year}`}>{item.operatingIncome}</td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td>당기순이익</td>
-                    {DUMMY_FINANCIALS.map((item) => (
-                      <td key={`net-${item.year}`}>{item.netIncome}</td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td>자산총계</td>
-                    {DUMMY_FINANCIALS.map((item) => (
-                      <td key={`asset-${item.year}`}>{item.totalAssets}</td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td>부채총계</td>
-                    {DUMMY_FINANCIALS.map((item) => (
-                      <td key={`liab-${item.year}`}>{item.totalLiabilities}</td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td>자본총계</td>
-                    {DUMMY_FINANCIALS.map((item) => (
-                      <td key={`equity-${item.year}`}>{item.totalEquity}</td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-        {/* )} */}
+          <div className="im-financial-table-wrap">
+            <table className="im-financial-table">
+              <thead>
+                <tr>
+                  <th>구분</th>
+                  {financials.map((item) => (
+                    <th key={item.year}>{item.year}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>매출액</td>
+                  {financials.map((item) => (
+                    <td key={`revenue-${item.year}`}>{item.revenue || "-"}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>영업이익</td>
+                  {financials.map((item) => (
+                    <td key={`op-${item.year}`}>{item.operatingIncome || "-"}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>당기순이익</td>
+                  {financials.map((item) => (
+                    <td key={`net-${item.year}`}>{item.netIncome || "-"}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>자산총계</td>
+                  {financials.map((item) => (
+                    <td key={`asset-${item.year}`}>{item.totalAssets || "-"}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>부채총계</td>
+                  {financials.map((item) => (
+                    <td key={`liab-${item.year}`}>{item.totalLiabilities || "-"}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>자본총계</td>
+                  {financials.map((item) => (
+                    <td key={`equity-${item.year}`}>{item.totalEquity || "-"}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </main>
     </div>
   );
