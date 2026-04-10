@@ -416,9 +416,17 @@ function App() {
 
         <section className="im-character-card">
           <div className="im-character-visual">
+            <div className="im-character-copy">
+              <div className="im-character-title">iM Insight Bridge</div>
+              <div className="im-character-desc">
+                영업 현장에서 필요한 기업 정보를 더 빠르고 직관적으로 연결합니다.
+              </div>
+            </div>
+
             <div className="im-character-wave im-character-wave-1" />
             <div className="im-character-wave im-character-wave-2" />
             <div className="im-character-wave im-character-wave-3" />
+
             <img
               src={characterImg}
               alt="iM 캐릭터"
