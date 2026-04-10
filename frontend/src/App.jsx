@@ -40,6 +40,36 @@ const DUMMY_COMPANY = {
   },
 };
 
+const DUMMY_FINANCIALS = [
+  {
+    year: "2022",
+    revenue: "302,231,360",
+    operatingIncome: "43,376,630",
+    netIncome: "55,654,077",
+    totalAssets: "448,424,507",
+    totalLiabilities: "93,674,903",
+    totalEquity: "354,749,604",
+  },
+  {
+    year: "2023",
+    revenue: "258,935,494",
+    operatingIncome: "6,566,976",
+    netIncome: "15,487,100",
+    totalAssets: "455,906,980",
+    totalLiabilities: "92,228,115",
+    totalEquity: "363,678,865",
+  },
+  {
+    year: "2024",
+    revenue: "300,870,960",
+    operatingIncome: "32,726,760",
+    netIncome: "34,451,480",
+    totalAssets: "483,003,490",
+    totalLiabilities: "108,217,160",
+    totalEquity: "374,786,330",
+  },
+];
+
 const DUMMY_BIZR_NO = "1248100998";
 const DUMMY_JURIR_NO = "1301110006246";
 
@@ -285,6 +315,64 @@ function App() {
             </div>
           )}
         </section>
+        
+        {data && serviceLevel === "FULL" && (
+          <section className="im-financial-card">
+            <div className="im-section-title">핵심요약재무보고서</div>
+            <div className="im-financial-subtitle">최근 3개년 기준 (단위: 백만원)</div>
+
+            <div className="im-financial-table-wrap">
+              <table className="im-financial-table">
+                <thead>
+                  <tr>
+                    <th>구분</th>
+                    {DUMMY_FINANCIALS.map((item) => (
+                      <th key={item.year}>{item.year}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>매출액</td>
+                    {DUMMY_FINANCIALS.map((item) => (
+                      <td key={`revenue-${item.year}`}>{item.revenue}</td>
+                    ))}
+                  </tr>
+                  <tr>
+                    <td>영업이익</td>
+                    {DUMMY_FINANCIALS.map((item) => (
+                      <td key={`op-${item.year}`}>{item.operatingIncome}</td>
+                    ))}
+                  </tr>
+                  <tr>
+                    <td>당기순이익</td>
+                    {DUMMY_FINANCIALS.map((item) => (
+                      <td key={`net-${item.year}`}>{item.netIncome}</td>
+                    ))}
+                  </tr>
+                  <tr>
+                    <td>자산총계</td>
+                    {DUMMY_FINANCIALS.map((item) => (
+                      <td key={`asset-${item.year}`}>{item.totalAssets}</td>
+                    ))}
+                  </tr>
+                  <tr>
+                    <td>부채총계</td>
+                    {DUMMY_FINANCIALS.map((item) => (
+                      <td key={`liab-${item.year}`}>{item.totalLiabilities}</td>
+                    ))}
+                  </tr>
+                  <tr>
+                    <td>자본총계</td>
+                    {DUMMY_FINANCIALS.map((item) => (
+                      <td key={`equity-${item.year}`}>{item.totalEquity}</td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );
