@@ -272,28 +272,15 @@ function App() {
           <div className="im-section-title">업체 개요</div>
 
           {!data ? (
-            <div className="im-overview-content">
+            <div className="im-overview-content single-column">
               <div className="im-overview-left">
                 <div className="im-empty-state">
                   조회 결과가 여기에 표시됩니다.
                 </div>
               </div>
-
-              <div className="im-overview-right">
-                <div className="im-right-visual">
-                  <div className="im-mint-wave im-wave-1" />
-                  <div className="im-mint-wave im-wave-2" />
-                  <div className="im-mint-wave im-wave-3" />
-                  <img
-                    src={characterImg}
-                    alt="iM 캐릭터"
-                    className="im-character"
-                  />
-                </div>
-              </div>
             </div>
           ) : (
-            <div className="im-overview-content">
+            <div className="im-overview-content single-column">
               <div className="im-overview-left">
                 <div className="im-info-table">
                   <div className="im-info-row">
@@ -343,19 +330,6 @@ function App() {
                       <span>{formatDate(data.listingDate)}</span>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="im-overview-right">
-                <div className="im-right-visual">
-                  <div className="im-mint-wave im-wave-1" />
-                  <div className="im-mint-wave im-wave-2" />
-                  <div className="im-mint-wave im-wave-3" />
-                  <img
-                    src={characterImg}
-                    alt="iM 캐릭터"
-                    className="im-character"
-                  />
                 </div>
               </div>
             </div>
@@ -438,6 +412,19 @@ function App() {
               ))}
             </div>
           )}
+        </section>
+
+        <section className="im-character-card">
+          <div className="im-character-visual">
+            <div className="im-character-wave im-character-wave-1" />
+            <div className="im-character-wave im-character-wave-2" />
+            <div className="im-character-wave im-character-wave-3" />
+            <img
+              src={characterImg}
+              alt="iM 캐릭터"
+              className="im-bottom-character"
+            />
+          </div>
         </section>
 
       </main>

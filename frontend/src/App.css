@@ -727,3 +727,113 @@ select {
     line-height: 1.6;
   }
 }
+
+.im-overview-content.single-column {
+  display: block;
+}
+
+.im-overview-content.single-column .im-overview-left {
+  width: 100%;
+}
+
+.im-character-card {
+  background: var(--im-white);
+  border-radius: 28px;
+  padding: 24px 24px 12px;
+  box-shadow: var(--im-shadow);
+  border: 1px solid #edf0f3;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.im-character-visual {
+  position: relative;
+  height: 220px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfffe 100%);
+  overflow: hidden;
+}
+
+.im-character-wave {
+  position: absolute;
+  border-radius: 999px;
+}
+
+.im-character-wave-1 {
+  width: 520px;
+  height: 520px;
+  right: -210px;
+  bottom: -260px;
+  border: 28px solid rgba(19, 199, 179, 0.18);
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+.im-character-wave-2 {
+  width: 400px;
+  height: 400px;
+  right: -130px;
+  bottom: -200px;
+  border: 24px solid rgba(19, 199, 179, 0.12);
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+.im-character-wave-3 {
+  width: 300px;
+  height: 300px;
+  right: -60px;
+  bottom: -145px;
+  border: 20px solid rgba(19, 199, 179, 0.08);
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+.im-bottom-character {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  bottom: 0;
+  width: 260px;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .im-character-card {
+    padding: 18px 18px 8px;
+    border-radius: 22px;
+    margin-top: 18px;
+  }
+
+  .im-character-visual {
+    height: 160px;
+    border-radius: 16px;
+  }
+
+  .im-bottom-character {
+    width: 190px;
+    max-width: 72%;
+  }
+
+  .im-character-wave-1 {
+    width: 360px;
+    height: 360px;
+    right: -150px;
+    bottom: -200px;
+  }
+
+  .im-character-wave-2 {
+    width: 280px;
+    height: 280px;
+    right: -90px;
+    bottom: -155px;
+  }
+
+  .im-character-wave-3 {
+    width: 210px;
+    height: 210px;
+    right: -35px;
+    bottom: -110px;
+  }
+}
