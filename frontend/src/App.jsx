@@ -316,7 +316,7 @@ function App() {
           )}
         </section>
         
-        {data && serviceLevel === "FULL" && (
+        {/* {data && serviceLevel === "FULL" && ( */}
           <section className="im-financial-card">
             <div className="im-section-title">핵심요약재무보고서</div>
             <div className="im-financial-subtitle">최근 3개년 기준 (단위: 백만원)</div>
@@ -372,7 +372,7 @@ function App() {
               </table>
             </div>
           </section>
-        )}
+        {/* )} */}
       </main>
     </div>
   );
